@@ -439,7 +439,7 @@ html.casper .nav-post-title {
     visibility: hidden;
     position: absolute;
     top: 9px;
-    color: #fff;
+    color: var(--red);
     font-size: 1.7rem;
     font-weight: 400;
     text-transform: none;
@@ -980,7 +980,7 @@ html.casper .post-full-meta-date {
 
 html.casper .post-full-title {
     margin: 0 0 0.2em;
-    color: color-mod(var(--darkgrey) l(-5%));
+    color: color-mod(var(--red) l(-0%));
 }
 
 html.casper .post-full-custom-excerpt {
