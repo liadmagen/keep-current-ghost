@@ -16,6 +16,10 @@ html.casper body.dark .site-header-background:before {
   background: rgba(0, 0, 0, 0.6);
 }
 
+html.casper body.dark .site-header-background {
+  background: color-mod(var(--darkmode) l(+30%)) no-repeat center center;
+}
+
 html.casper body.dark .post-feed {
   background: var(--darkmode);
 }

@@ -3,17 +3,18 @@
 
 :root {
     /* Colours */
-    --blue: #0078d0;
+    --blue: #83C6C9;
     --green: #a4d037;
-    --purple: #ad26b4;
+    --cyan: #336F6D;
     --yellow: #fecd35;
-    --red: #f05230;
+    --red: #ff5d52;
     --darkgrey: #15171A;
     --midgrey: #738a94;
     --lightgrey: #c5d2d9;
     --whitegrey: #e5eff5;
     --pink: #fa3a57;
     --brown: #a3821a;
+    --header: #fff;
     --darkmode: color-mod(var(--darkgrey) l(+2%));
 }
 

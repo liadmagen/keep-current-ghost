@@ -113,8 +113,8 @@ html.casper .site-header-background {
     position: relative;
     margin-top: 64px;
     padding-bottom: 12px;
-    color: #fff;
-    background: color-mod(var(--darkgrey) l(-5%)) no-repeat center center;
+    color: #333;
+    background: var(--header) no-repeat center center;
     background-size: cover;
 }
 
@@ -169,7 +169,7 @@ html.casper .site-title {
 }
 
 html.casper .site-logo {
-    max-height: 55px;
+    max-height: 105px;
 }
 
 html.casper .site-description {
@@ -283,7 +283,7 @@ html.casper .site-nav-main {
     right: 0;
     left: 0;
     z-index: 1000;
-    background: color-mod(var(--darkgrey) l(-5%));
+    background: color-mod(var(--header) l(-5%));
 }
 
 html.casper .site-nav {
@@ -316,7 +316,7 @@ html.casper .site-nav-main .site-nav-left-wrapper:after {
 html.casper .site-header-background:not(.responsive-header-img) .site-nav-left-wrapper:after,
 html.casper .site-nav-main .site-nav-left-wrapper:after {
     right: 0;
-    background: linear-gradient(to right, color-mod(var(--darkgrey) l(-5%) a(0)) 0%,color-mod(var(--darkgrey) l(-5%)) 100%);
+    /* background: linear-gradient(to right, color-mod(var(--darkgrey) l(-5%) a(0)) 0%,color-mod(var(--darkgrey) l(-5%)) 100%); */
 }
 
 html.casper .site-nav-left {
@@ -402,7 +402,7 @@ html.casper .nav li a {
     position: relative;
     display: block;
     padding: 12px 12px;
-    color: #fff;
+    color: #000;
     opacity: 0.8;
     transition: opacity 0.35s ease-in-out;
 }
@@ -508,7 +508,7 @@ html.casper .social-link:hover {
 
 html.casper .social-link svg {
     height: 1.8rem;
-    fill: #fff;
+    fill: #000;
 }
 
 html.casper .social-link-fb svg {
@@ -531,8 +531,8 @@ html.casper .subscribe-button {
     display: block;
     margin: 0 0 0 10px;
     padding: 4px 10px;
-    border: #fff 1px solid;
-    color: #fff;
+    border: #000 1px solid;
+    color: #000;
     line-height: 1em;
     border-radius: 10px;
     opacity: 0.8;

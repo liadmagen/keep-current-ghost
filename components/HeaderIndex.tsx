@@ -22,7 +22,7 @@ export const HeaderIndex = ({ settings }: HeaderIndexProps) => {
   const { feature: nextFeatureImages, quality: imageQuality } = nextImages
 
   // targetHeight is coming from style .site-logo
-  const targetHeight = 55
+  const targetHeight = 105
   const calcSiteLogoWidth = (image: NextImage, targetHeight: number) => {
     const { width, height } = image.dimensions
     return targetHeight * width / height
