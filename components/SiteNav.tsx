@@ -26,7 +26,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     addNavigation: customNavigation || [],
   }
   const site = settings
-  const siteUrl = new URL(settings.processEnv.siteUrl);
+  const siteUrl = new URL(settings.processEnv.siteUrl).href;
   const title = text(`SITE_TITLE`, site.title)
   const secondaryNav = site.secondary_navigation && 0 < site.secondary_navigation.length
   const siteLogo = site.logoImage
@@ -61,7 +61,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     <nav className={className}>
       <div className="site-nav-left-wrapper">
         <div className="site-nav-left">
-          <Link href={siteUrl.href}>
+          <Link href={siteUrl}>
             {siteLogo && nextImages.feature ? (
               <a className="site-nav-logo">
                 <div
