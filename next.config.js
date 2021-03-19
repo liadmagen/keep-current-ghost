@@ -9,6 +9,7 @@ module.exports = withBundleAnalyzer({
     domains: [
       'localhost',
       'keep-current.ghost.io',
+      'vitals.vercel-insights.com',
       'images.unsplash.com',
       'static.gotsby.org',
       'static.ghost.org',
