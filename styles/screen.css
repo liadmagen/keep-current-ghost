@@ -1239,7 +1239,7 @@ html.casper .post-full-content hr {
 }
 
 html.casper .post-full-content hr:after {
-    content: "";
+    /* content: ""; */
     position: absolute;
     top: -15px;
     left: 50%;
