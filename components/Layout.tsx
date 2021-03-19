@@ -32,7 +32,6 @@ interface LayoutProps {
   errorClass?: string
 }
 
-
 export const Layout = ({ settings, header, children, isHome, sticky, previewPosts, bodyClass, errorClass }: LayoutProps) => {
   const text = get(useLang())
   const site = settings
@@ -52,12 +51,12 @@ export const Layout = ({ settings, header, children, isHome, sticky, previewPost
         {/* The main header section on top of the screen */}
         {header}
         {/* The main content area */}
-        <main ref={isHome && sticky && sticky.anchorRef || null} id="site-main" className={`site-main outer ${errorClass}`}>
+        <main ref={(isHome && sticky && sticky.anchorRef) || null} id="site-main" className={`site-main outer ${errorClass}`}>
           {/* All the main content gets inserted here, index.js, post.js */}
           {children}
         </main>
         {/* For sticky nav bar */}
-        {isHome && <StickyNav className={`site-nav ${sticky && sticky.state.currentClass}`}  {...{ siteUrl, settings }} />}
+        {isHome && <StickyNav className={`site-nav ${sticky && sticky.state.currentClass}`} {...{ siteUrl, settings }} />}
         {/* Links to Previous/Next posts */}
         {previewPosts}
 
@@ -82,19 +81,18 @@ export const Layout = ({ settings, header, children, isHome, sticky, previewPost
                   Twitter
                 </a>
               )}
+              <a href="https://www.linkedin.com/company/35631513" target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
             </nav>
           </div>
         </footer>
       </div>
 
-      {memberSubscriptions && (
-        <SubscribeSuccess {...{ title }} />
-      )}
+      {memberSubscriptions && <SubscribeSuccess {...{ title }} />}
 
       {/* The big email subscribe modal content */}
-      {memberSubscriptions && (
-        <SubscribeOverlay {...{ settings }} />
-      )}
+      {memberSubscriptions && <SubscribeOverlay {...{ settings }} />}
     </>
   )
 }
