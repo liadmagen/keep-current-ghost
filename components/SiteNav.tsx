@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { resolve } from 'url'
 
 import { Navigation } from '@components/Navigation'
 import { SocialLinks } from '@components/SocialLinks'
@@ -27,7 +26,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     addNavigation: customNavigation || [],
   }
   const site = settings
-  const siteUrl = settings.processEnv.siteUrl
+  const siteUrl = new URL(settings.processEnv.siteUrl);
   const title = text(`SITE_TITLE`, site.title)
   const secondaryNav = site.secondary_navigation && 0 < site.secondary_navigation.length
   const siteLogo = site.logoImage
@@ -62,7 +61,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     <nav className={className}>
       <div className="site-nav-left-wrapper">
         <div className="site-nav-left">
-          <Link href={resolve(siteUrl, '')}>
+          <Link href={siteUrl.href}>
             {siteLogo && nextImages.feature ? (
               <a className="site-nav-logo">
                 <div
