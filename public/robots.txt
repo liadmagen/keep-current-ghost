@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://next.jamify.org
+Host: https://keep-current.vercel.app
 
 # Sitemaps
-Sitemap: https://next.jamify.org/sitemap.xml
+Sitemap: https://keep-current.vercel.app/sitemap.xml
