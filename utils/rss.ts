@@ -3,7 +3,7 @@ import RSS from 'rss'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from "@lib/ghost"
 import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@meta/siteDefaults'
-import { resolve } from 'url'
+import { URL } from 'url'
 import { Tag } from '@tryghost/content-api'
 
 interface FeedProps {
@@ -17,9 +17,9 @@ export const generateRSSFeed = ({ posts, settings }: FeedProps) => {
     title: siteTitleMeta,
     description: siteDescriptionMeta,
     generator: `Jamify Blog Starter 2.0`,
-    feed_url: resolve(siteUrl, 'rss/'),
-    site_url: resolve(siteUrl, ''),
-    image_url: resolve(siteUrl, siteIcon),
+    feed_url: new URL('rss/', siteUrl).href,
+    site_url: new URL('', siteUrl).href,
+    image_url: new URL(siteIcon, siteUrl).href, 
     ttl: 60,
     custom_namespaces: {
       content: `http://purl.org/rss/1.0/modules/content/`,
