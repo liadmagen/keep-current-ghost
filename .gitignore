@@ -36,7 +36,7 @@ yarn-error.log*
 
 # post build
 /public/*.xml
-/public/images
+# /public/images
 
 # cache
 /.cache
