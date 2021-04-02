@@ -62,7 +62,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<NextAp
   if (origin !== siteUrl) {
     return res.status(400).json({
       error: 400,
-      message: 'Wrong origin (' + origin + '). Check your siteUrl (' + siteUrl + ').'
+      message: 'Wrong origin. Check your siteUrl.'
     })
   }
 
