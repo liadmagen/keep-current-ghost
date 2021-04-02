@@ -11,8 +11,8 @@ export const defaultPage: ContactPage = {
   slug: 'contact',
   url: '/contact',
   title: 'Contact Us',
-  custom_excerpt: 'Want to get in touch with the team? Just drop us a line!',
-  form_topics: ['I want to give feedback', 'I want to ask a question'],
+  custom_excerpt: 'Want to get in touch with us? Just drop us a line!',
+  form_topics: ['I want to give feedback', 'I want to consult or ask a question', 'I want to write an article', 'I want to book a workshop'],
   meta_title: 'Contact Us',
   meta_description: 'A contact form page.',
   html: '',
@@ -21,10 +21,10 @@ export const defaultPage: ContactPage = {
     contentType: 'application/json',
   },
   featureImage: {
-    url: 'https://static.gotsby.org/v1/assets/images/gatsby-ghost-contact.png',
+    url: 'https://keep-current.com/images/contact_us_20190611_190856.jpg',
     dimensions: {
       width: 1040,
-      height: 250
+      height: 366
     }
   }
 }
