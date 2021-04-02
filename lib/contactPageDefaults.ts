@@ -21,7 +21,7 @@ export const defaultPage: ContactPage = {
     contentType: 'application/json',
   },
   featureImage: {
-    url: 'https://keep-current.com/images/contact_us_20190611_190856.jpg',
+    url: '/images/contact_us_20190611_190856.png',
     dimensions: {
       width: 1040,
       height: 366
