@@ -19,22 +19,25 @@ export const GoogleAnalytics = () => {
       {/* enable analytics script only for production */}
       <Head>
         {concent === 'true' && (<script src={gaURL}></script>)}
-        {concent === 'true' && (<script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+        {concent === 'true' && (<script dangerouslySetInnerHTML={{ __html: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-  gtag('config', '${GA_TRACKING_ID}');` }}></script>)}
+        gtag('config', '${GA_TRACKING_ID}');
+        console.log('lets go!');
+        ` }}></script>)}
       </Head>
 
       <CookieConsent
         location="bottom"
         enableDeclineButton={true}
-        buttonText="I Understand"
+        buttonText="I agree"
         style={{ background: '#333333' }}
-        buttonStyle={{ backgroundColor: '#ff5d52', color: '#eee', fontSize: '16px', fontWeight: 'bold' }}
+        buttonStyle={{ backgroundColor: '#99AA38', color: '#eee', fontSize: '16px', fontWeight: 'bold' }}
         onAccept={() => {setConcent('true');}}
       >
-        We are using 3rd party cookies to track content popularity, as well as storing this concent choice so we don't annoy you... By using the site, you concent to these cookies.{' '}
+        We are using 3rd party cookies to track content popularity, as well as storing your concent to this annoying message, so you won't see it again... By agreeing, you permit these cookies.{' '}
         <a href="/privacy">Learn more</a>
       </CookieConsent>
     </>
