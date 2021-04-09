@@ -21,6 +21,7 @@ export default class MyDocument extends Document {
     return (
       <Html {...{lang, className: 'casper' }}>
         <Head>
+          <link rel="preconnect" href="https://www.googletagmanager.com" />
           <link
             rel="alternate"
             type="application/rss+xml"
