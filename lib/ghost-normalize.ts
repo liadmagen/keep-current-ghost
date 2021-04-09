@@ -8,7 +8,7 @@ import { PostOrPage } from '@tryghost/content-api'
 import { Dimensions, imageDimensions } from '@lib/images'
 import { generateTableOfContents } from '@lib/toc'
 import { GhostPostOrPage, createNextProfileImagesFromAuthors } from './ghost'
-import { parse as urlParse, UrlWithStringQuery } from 'url'
+import { URL, UrlWithStringQuery } from 'url'
 
 import { processEnv } from '@lib/processEnv'
 const { prism, toc, nextImages } = processEnv
@@ -50,7 +50,7 @@ export const normalizePost = async (post: PostOrPage, cmsUrl: UrlWithStringQuery
 
 const withRewriteGhostLinks = (cmsUrl: UrlWithStringQuery, basePath = '/') => (htmlAst: Node) => {
   visit(htmlAst, { tagName: `a` }, (node: Node) => {
-    const href = urlParse((node.properties as HTMLAnchorElement).href)
+    const href = new URL((node.properties as HTMLAnchorElement).href)
     if (href.protocol === cmsUrl.protocol && href.host === cmsUrl.host) {
       ;(node.properties as HTMLAnchorElement).href = basePath + href.pathname?.substring(1)
     }
