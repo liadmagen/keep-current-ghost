@@ -1,5 +1,5 @@
 import path from 'path'
-import { resolve } from 'url'
+import { URL } from 'url'
 
 import { siteImage } from '@meta/siteDefaults'
 import { imageDimensions, imageDimensionsFromFile, Dimensions } from '@lib/images'
@@ -28,7 +28,7 @@ export const seoImage = async (props: SeoImageProps): Promise<ISeoImage> => {
   const publicRoot = path.join(process.cwd(), 'public')
   const file = path.join(publicRoot, imageName || siteImage)
   const dimensions = await imageDimensionsFromFile(file) || defaultDimensions
-  const url = resolve(siteUrl, imageName || siteImage)
+  const url = new URL(imageName || siteImage, siteUrl).href
 
   return { url, dimensions }
 }
