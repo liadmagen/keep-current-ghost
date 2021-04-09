@@ -11,6 +11,8 @@ import { GhostSettings } from '@lib/ghost'
 
 import { StickyNavContainer } from '@effects/StickyNavContainer'
 
+import { GoogleAnalytics } from '@components/GoogleAnalytics'
+
 /**
  * Main layout component
  *
@@ -45,6 +47,7 @@ export const Layout = ({ settings, header, children, isHome, sticky, previewPost
   return (
     <>
       <DocumentHead className={bodyClass} />
+      <GoogleAnalytics />
 
       <div className="site-wrapper">
         {/* The main header section on top of the screen */}
