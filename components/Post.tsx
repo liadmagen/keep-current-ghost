@@ -42,9 +42,10 @@ interface PostProps {
 
 export const Post = ({ cmsData }: PostProps) => {
   const { post, settings, seoImage, previewPosts, prevPost, nextPost, bodyClass } = cmsData
-  const { slug, url, meta_description, excerpt } = post
+  const { slug, url, meta_title, meta_description, excerpt } = post
   const { url: cmsUrl } = settings
   const description = meta_description || excerpt
+  const title = meta_title || undefined;
 
   const { processEnv } = settings
   const { nextImages, toc, memberSubscriptions, commenting } = processEnv
@@ -61,7 +62,7 @@ export const Post = ({ cmsData }: PostProps) => {
 
   return (
     <>
-      <SEO {...{ description, settings, seoImage, article: post }} />
+      <SEO {...{ title, description, settings, seoImage, article: post }} />
       <StickyNavContainer
         throttle={300}
         isPost={true}
