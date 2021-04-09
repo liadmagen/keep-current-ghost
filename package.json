@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "keywords": [
+    "keep-current",
     "nextjs",
     "next.js",
     "nextjs-blog",
@@ -12,9 +13,6 @@
     "nextjs-starter-ghost",
     "nextjs-serverless",
     "gatsby-alternative",
-    "jamify",
-    "jamify-starter",
-    "jamify-starter-ghost",
     "ghost",
     "ghost-cms",
     "ghost-theme",
