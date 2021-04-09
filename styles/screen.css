@@ -667,11 +667,11 @@ html.casper .no-image .post-card-header {
 
 html.casper .post-card-primary-tag {
     margin: 0 0 0.2em;
-    color: var(--blue);
+    color: var(--green);
     font-size: 1.2rem;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    /* text-transform: uppercase; */
 }
 
 html.casper .post-card-title {
@@ -1262,7 +1262,7 @@ html.casper .post-full-content h3,
 html.casper .post-full-content h4,
 html.casper .post-full-content h5,
 html.casper .post-full-content h6 {
-    color: color-mod(var(--green) l(-5%));
+    color: color-mod(var(--blue) l(-5%));
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 

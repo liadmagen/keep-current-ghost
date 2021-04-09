@@ -134,8 +134,8 @@ html.casper aside.toc li a {
 }
 
 html.casper aside.toc li a.active {
-  color: var(--green) !important;
-  border-bottom: 1px solid var(--green);
+  color: var(--blue) !important;
+  border-bottom: 1px solid var(--blue);
 }
 
 html.casper aside.toc li a::before {
@@ -150,12 +150,12 @@ html.casper aside.toc li a::before {
 }
 
 html.casper aside.toc li a.active::before {
-  background-color: var(--green);
+  background-color: var(--blue);
 }
 
 html.casper aside.toc li a:hover {
-  color: var(--green) !important;
-  border-bottom: 1px solid var(--green);
+  color: var(--blue) !important;
+  border-bottom: 1px solid var(--blue);
   text-decoration: none;
   box-shadow: none;
 }
