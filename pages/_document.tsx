@@ -3,6 +3,7 @@ import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/do
 import { URL } from 'url'
 import { processEnv } from '@lib/processEnv'
 import { GA_TRACKING_ID } from "../lib/gtag";
+import CookieConsent, { Cookies } from "react-cookie-consent";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -68,6 +69,15 @@ export default class MyDocument extends Document {
           `,
             }}
           />
+          <CookieConsent
+  location="bottom"
+  buttonText="I understand"
+  cookieName="cookieConcentCookie"
+  style={{ background: "#333333" }}
+  buttonStyle={{ color: "#eee", fontSize: "1rem" }}
+>
+  We are using 3rd party cookies to track pages popularity, as well as to store your concent choice... 
+</CookieConsent>
           <Main />
           <NextScript />
         </body>
