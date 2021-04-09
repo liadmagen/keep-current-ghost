@@ -10,7 +10,6 @@ import { useLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
 
 import { StickyNavContainer } from '@effects/StickyNavContainer'
-import { resolve } from 'url'
 
 /**
  * Main layout component
@@ -64,7 +63,7 @@ export const Layout = ({ settings, header, children, isHome, sticky, previewPost
         <footer className="site-footer outer">
           <div className="site-footer-content inner">
             <section className="copyright">
-              <a href={resolve(siteUrl, '')}>{title}</a> &copy; {new Date().getFullYear()}
+              <a href={siteUrl}>{title}</a> &copy; {new Date().getFullYear()}
             </section>
 
             <nav className="site-footer-nav">
@@ -83,6 +82,10 @@ export const Layout = ({ settings, header, children, isHome, sticky, previewPost
               )}
               <a href="https://www.linkedin.com/company/35631513" target="_blank" rel="noopener noreferrer">
                 LinkedIn
+              </a>
+
+              <a href="https://www.youtube.com/channel/UC77190nFUOp8H6BOikPoDHw" target="_blank" rel="noopener noreferrer">
+                YouTube
               </a>
             </nav>
           </div>
