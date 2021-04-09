@@ -13,6 +13,7 @@ module.exports = withBundleAnalyzer({
       'images.unsplash.com',
       'adapterhub.ml',
       'pair-code.github.io',
+      'layout-parser.github.io',
       'avatars.githubusercontent.com',
       'losttapesofthe27club.com',
       'miro.medium.com',
