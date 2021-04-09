@@ -1,63 +1,18 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent'
-import { useRouter } from 'next/router'
 import { GA_TRACKING_ID } from '../lib/gtag'
 
-// const isProduction = process.env.NODE_ENV === 'production'
-// const concent = getCookieConsentValue();
+const isProduction = process.env.NODE_ENV === 'production'
+const cookieConcent = getCookieConsentValue();
 
 export const GoogleAnalytics = () => {
-  const router = useRouter();
+  if(!isProduction) {
+    return <></>
+  }
+
   const gaURL = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
-  const [concent, setConcent] = useState(getCookieConsentValue());
-
-  //   const { action, success } = router.query
-
-  //   useEffect(() => {
-  //     const script = document.createElement('script');
-  //     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
-  //     script.async = true;
-  //     document.body.appendChild(script);
-  //   return () => {
-  //       document.body.removeChild(script);
-  //     }
-  //   }, []);
-
-  // const activateGA = () => {
-  //   ;(window as any).dataLayer = (window as any).dataLayer || []
-  //   function gtag(name: string, val: any, moreVals: any = undefined) {
-  //     ;(window as any).dataLayer.push(arguments)
-  //   }
-  //   gtag('js', new Date())
-  //   gtag('config', `${GA_TRACKING_ID}`, {
-  //     page_path: router.pathname,
-  //   })
-  // }
-
-  // const addGoogleAnalytics = () => {
-  //   useScript(gaURL)
-  //   activateGA()
-  // }
-
-  // const addGAScript = () => {
-  //   const script = document.createElement('script')
-
-  //   script.src = gaURL
-  //   script.async = true
-
-  //   document.body.appendChild(script)
-  //   activateGA()
-  // }
-
-  // useEffect(() => {
-  //   const concent = getCookieConsentValue()
-  //   if (concent) {
-  //     addGAScript()
-  //   }
-  // }, [])
-
-  console.log(concent === 'true');
+  const [concent, setConcent] = useState(cookieConcent);
 
   return (
     <>
