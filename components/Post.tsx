@@ -45,7 +45,7 @@ export const Post = ({ cmsData }: PostProps) => {
   const { slug, url, meta_title, meta_description, excerpt } = post
   const { url: cmsUrl } = settings
   const description = meta_description || excerpt
-  const title = meta_title || undefined;
+  const title = meta_title || undefined
 
   const { processEnv } = settings
   const { nextImages, toc, memberSubscriptions, commenting } = processEnv
@@ -156,6 +156,15 @@ export const Post = ({ cmsData }: PostProps) => {
                 {commenting.system === 'commento' && <CommentoComments {...{ id: post.id, url: commenting.commentoUrl }} />}
 
                 {commenting.system === 'disqus' && <DisqusComments {...{ post, shortname: commenting.disqusShortname }} />}
+
+                  <script
+                    src="https://utteranc.es/client.js"
+                    repo="liadmagen/keep-current-ghost"
+                    issue-term="pathname"
+                    theme="github-light"
+                    crossOrigin="anonymous"
+                    async
+                  ></script>
               </article>
             </div>
           </Layout>
