@@ -159,7 +159,8 @@ export const Post = ({ cmsData }: PostProps) => {
 
                   <script
                     src="https://utteranc.es/client.js"
-                    repo="liadmagen/keep-current-ghost"
+                    /* @ts-ignore */
+                    repo="Keep-Current/keep-current.github.io"
                     issue-term="pathname"
                     theme="github-light"
                     crossOrigin="anonymous"
