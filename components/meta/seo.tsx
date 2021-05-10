@@ -74,7 +74,7 @@ export const SEO = (props: SEOProps) => {
       {seoImage && <meta property="og:image:width" content={`${seoImage.dimensions.width}`} />}
       {seoImage && <meta property="og:image:height" content={`${seoImage.dimensions.height}`} />}
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}></script>
-      {codeinjection_head && <script type="" dangerouslySetInnerHTML={{__html: codeinjection_head}}></script>}
+      {`${codeinjection_head}`}
     </Head>
   )
 }
