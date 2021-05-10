@@ -17,19 +17,12 @@ interface SEOProps {
   article?: PostOrPage
 }
 
-const getPublicTags = (tags: Tag[] | undefined) =>
-  (tags ? tags.filter(tag => tag.name?.substr(0, 5) !== 'hash-') : [])
+const getPublicTags = (tags: Tag[] | undefined) => (tags ? tags.filter((tag) => tag.name?.substr(0, 5) !== 'hash-') : [])
 
 export const SEO = (props: SEOProps) => {
-  const {
-    title: t, description: d, seoImage, settings, article
-  } = props
+  const { title: t, description: d, seoImage, settings, article } = props
 
-  const {
-    og_title, og_description, published_at, updated_at,
-    primary_author, primary_tag, twitter_title, twitter_description,
-    codeinjection_head
-  } = article || {}
+  const { og_title, og_description, published_at, updated_at, primary_author, primary_tag, twitter_title, twitter_description, codeinjection_head } = article || {}
   const type = article ? 'article' : 'website'
   const facebook = primary_author?.facebook
 
@@ -62,8 +55,8 @@ export const SEO = (props: SEOProps) => {
       <meta property="twitter:title" content={twitter_title || title} />
       <meta property="twitter:description" content={twitter_description || description} />
       <meta property="twitter:url" content={canonical} />
-      { primary_author && <meta property="twitter:label1" content="Written by" />}
-      { primary_author && <meta property="twitter:data1" content={primary_author?.name} />}
+      {primary_author && <meta property="twitter:label1" content="Written by" />}
+      {primary_author && <meta property="twitter:data1" content={primary_author?.name} />}
       {primary_tag && <meta property="twitter:label2" content="Filed under" />}
       {primary_tag && <meta property="twitter:data2" content={primary_tag?.name} />}
       <meta property="twitter:card" content="summary_large_image" />
@@ -73,8 +66,25 @@ export const SEO = (props: SEOProps) => {
       {seoImage && <meta property="og:image" content={seoImage.url} />}
       {seoImage && <meta property="og:image:width" content={`${seoImage.dimensions.width}`} />}
       {seoImage && <meta property="og:image:height" content={`${seoImage.dimensions.height}`} />}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}></script>
-      {`${codeinjection_head}`}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}></script>
+
+      <script
+        type="text/javascript"
+        async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML"
+        onLoad={() => {
+          // @ts-ignore
+          MathJax.Hub.Config({
+            tex2jax: {
+              inlineMath: [
+                ['$', '$'],
+                ['\\(', '\\)'],
+              ],
+              processEscapes: true,
+            },
+          })
+        }}
+      ></script>
     </Head>
   )
 }
@@ -82,13 +92,11 @@ export const SEO = (props: SEOProps) => {
 export const authorSameAs = (author: Author) => {
   const { website, twitter, facebook } = author
 
-  const authorProfiles = [
-    website,
-    twitter && `https://twitter.com/${twitter.replace(/^@/, ``)}/`,
-    facebook && `https://www.facebook.com/${facebook.replace(/^\//, ``)}/`
-  ].filter(element => !!element)
+  const authorProfiles = [website, twitter && `https://twitter.com/${twitter.replace(/^@/, ``)}/`, facebook && `https://www.facebook.com/${facebook.replace(/^\//, ``)}/`].filter(
+    (element) => !!element
+  )
 
-  return authorProfiles.length > 0 && `["${authorProfiles.join(`", "`)}"]` || undefined
+  return (authorProfiles.length > 0 && `["${authorProfiles.join(`", "`)}"]`) || undefined
 }
 
 const getJsonLd = ({ title, description, canonical, seoImage, settings, sameAs, article }: SEOProps) => {
@@ -101,13 +109,13 @@ const getJsonLd = ({ title, description, canonical, seoImage, settings, sameAs, 
     '@type': type,
     sameAs,
     url: canonical,
-    ...article && { ...getArticleJsonLd(article) },
+    ...(article && { ...getArticleJsonLd(article) }),
     image: {
-      ...seoImage && {
+      ...(seoImage && {
         '@type': `ImageObject`,
         url: seoImage.url,
         ...seoImage.dimensions,
-      }
+      }),
     },
     publisher: {
       '@type': `Organization`,
@@ -123,7 +131,7 @@ const getJsonLd = ({ title, description, canonical, seoImage, settings, sameAs, 
       '@type': `WebPage`,
       '@id': siteUrl,
     },
-    description
+    description,
   }
 }
 
@@ -131,7 +139,7 @@ const getArticleJsonLd = (article: PostOrPage) => {
   const { published_at, updated_at, primary_author, tags, meta_title, title } = article
   const name = primary_author?.name
   const image = primary_author?.profile_image
-  const sameAs = primary_author && authorSameAs(primary_author) || undefined
+  const sameAs = (primary_author && authorSameAs(primary_author)) || undefined
   const publicTags = getPublicTags(tags)
   const keywords = publicTags?.length ? publicTags.join(`, `) : undefined
   const headline = meta_title || title
@@ -140,7 +148,7 @@ const getArticleJsonLd = (article: PostOrPage) => {
     datePublished: published_at,
     dateModified: updated_at,
     author: {
-      '@type': "Article",
+      '@type': 'Article',
       name,
       image,
       sameAs,
