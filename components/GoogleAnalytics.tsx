@@ -25,7 +25,6 @@ export const GoogleAnalytics = () => {
         gtag('js', new Date());
 
         gtag('config', '${GA_TRACKING_ID}');
-        console.log('lets go!');
         ` }}></script>)}
       </Head>
 

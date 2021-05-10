@@ -68,22 +68,15 @@ export const SEO = (props: SEOProps) => {
       {seoImage && <meta property="og:image:height" content={`${seoImage.dimensions.height}`} />}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}></script>
 
+      <script type="text/x-mathjax-config">
+        {`
+      MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      `}
+    </script>
       <script
         type="text/javascript"
         async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML"
-        onLoad={() => {
-          // @ts-ignore
-          MathJax.Hub.Config({
-            tex2jax: {
-              inlineMath: [
-                ['$', '$'],
-                ['\\(', '\\)'],
-              ],
-              processEscapes: true,
-            },
-          })
-        }}
       ></script>
     </Head>
   )
