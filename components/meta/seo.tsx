@@ -27,7 +27,8 @@ export const SEO = (props: SEOProps) => {
 
   const {
     og_title, og_description, published_at, updated_at,
-    primary_author, primary_tag, twitter_title, twitter_description
+    primary_author, primary_tag, twitter_title, twitter_description,
+    codeinjection_head
   } = article || {}
   const type = article ? 'article' : 'website'
   const facebook = primary_author?.facebook
@@ -73,6 +74,7 @@ export const SEO = (props: SEOProps) => {
       {seoImage && <meta property="og:image:width" content={`${seoImage.dimensions.width}`} />}
       {seoImage && <meta property="og:image:height" content={`${seoImage.dimensions.height}`} />}
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}></script>
+      {codeinjection_head && <script type="" dangerouslySetInnerHTML={{__html: codeinjection_head}}></script>}
     </Head>
   )
 }
