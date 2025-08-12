@@ -12,6 +12,7 @@ import { getAllPosts, getAllSettings, GhostPostOrPage, GhostPostsOrPages, GhostS
 import { seoImage, ISeoImage } from '@meta/seoImage'
 
 import { BodyClass } from '@helpers/BodyClass'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 /**
  * Main index page (home page)
@@ -43,6 +44,7 @@ export default function Index({ cmsData }: IndexProps) {
   return (
     <>
       <SEO {...{ settings, seoImage }} />
+      <SpeedInsights/>
       <StickyNavContainer
         throttle={300}
         activeClass="fixed-nav-active"

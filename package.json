@@ -40,6 +40,7 @@
     "@tryghost/content-api": "^1.4.15",
     "@types/gtag.js": "^0.0.4",
     "@types/refractor": "^3.0.0",
+    "@vercel/speed-insights": "^1.2.0",
     "cheerio": "^1.0.0-rc.5",
     "dayjs": "^1.10.4",
     "disqus-react": "^1.0.11",
