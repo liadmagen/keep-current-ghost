@@ -18,7 +18,7 @@ import { Subscribe } from '@components/Subscribe'
 import { TableOfContents } from '@components/toc/TableOfContents'
 
 import { StickyNavContainer } from '@effects/StickyNavContainer'
-import { SEO } from '@meta/seo'
+ import { SEO } from '@meta/seo'
 
 import { PostClass } from '@helpers/PostClass'
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'

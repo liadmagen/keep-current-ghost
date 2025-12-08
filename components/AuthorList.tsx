@@ -24,6 +24,7 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
       {authors?.map((author, i) => {
         const url = resolveUrl({ cmsUrl, slug: author.slug, url: author.url || undefined })
         const profileImg = author.profileImage
+        const author_name = author.name || "Liad Magen"
 
         return (
           <HoverOnAvatar
@@ -39,7 +40,7 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
                         <Image
                           className="author-profile-image"
                           src={profileImg.url}
-                          alt={author.name}
+                          alt={author_name}
                           layout="responsive"
                           quality={nextImages.quality}
                           {...profileImg.dimensions}
@@ -78,7 +79,7 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
                 <Link href={url}>
                   {profileImg && nextImages.feature ? (
                     <a className={`${(isPost && `author`) || `static`}-avatar`} aria-label={author.name}>
-                      <Image src={profileImg.url} alt={author.name} layout="responsive" quality={nextImages.quality} {...profileImg.dimensions} />
+                      <Image src={profileImg.url} alt={author_name} layout="responsive" quality={nextImages.quality} {...profileImg.dimensions} />
                     </a>
                   ) : author.profile_image ? (
                     <a className={`${(isPost && `author`) || `static`}-avatar`} aria-label={author.name}>
