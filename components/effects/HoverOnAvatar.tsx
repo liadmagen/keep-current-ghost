@@ -1,12 +1,12 @@
-import { Component, RefObject, createRef } from 'react'
+import { Component, RefObject, createRef, ReactElement } from 'react'
 
 interface HoverOnAvatarProps {
   activeClass: string
-  render: (arg: HoverOnAvatar) => JSX.Element
+  render: (arg: HoverOnAvatar) => ReactElement
 }
 
 export class HoverOnAvatar extends Component<HoverOnAvatarProps> {
-  anchorRef: RefObject<HTMLLIElement>
+  anchorRef: RefObject<HTMLLIElement | null>
   activeClass: string
   hoverTimeout: NodeJS.Timeout | undefined
   state: {

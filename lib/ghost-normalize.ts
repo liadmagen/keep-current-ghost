@@ -49,10 +49,11 @@ export const normalizePost = async (post: PostOrPage, cmsUrl: UrlWithStringQuery
  */
 
 const withRewriteGhostLinks = (cmsUrl: UrlWithStringQuery, basePath = '/') => (htmlAst: Node) => {
-  visit(htmlAst, { tagName: `a` }, (node: Node) => {
-    const href = new URL((node.properties as HTMLAnchorElement).href)
+  visit(htmlAst, (node: any) => {
+    if (!node || node.tagName !== 'a') return
+    const href = new URL(((node.properties as any) || {}).href)
     if (href.protocol === cmsUrl.protocol && href.host === cmsUrl.host) {
-      ;(node.properties as HTMLAnchorElement).href = basePath + href.pathname?.substring(1)
+      ;(node.properties as any).href = basePath + href.pathname?.substring(1)
     }
   })
 
@@ -64,8 +65,9 @@ const withRewriteGhostLinks = (cmsUrl: UrlWithStringQuery, basePath = '/') => (h
  */
 
 const rewriteRelativeLinks = (htmlAst: Node) => {
-  visit(htmlAst, { tagName: `a` }, (node: Node) => {
-    const href = (node.properties as HTMLAnchorElement).href
+  visit(htmlAst, (node: any) => {
+    if (!node || node.tagName !== 'a') return
+    const href = ((node.properties as any) || {}).href
     if (href && !href.startsWith(`http`)) {
       const copyOfNode = cloneDeep(node)
       delete copyOfNode.properties
@@ -92,7 +94,7 @@ const syntaxHighlightWithPrismJS = (htmlAst: Node) => {
   if (!prism.enable) return htmlAst
 
   const getLanguage = (node: Node) => {
-    const className = (node.properties as NodeProperties).className || []
+    const className = (((node as any).properties as NodeProperties) || {}).className || []
 
     for (const classListItem of className) {
       if (classListItem.slice(0, 9) === 'language-') {
@@ -102,22 +104,22 @@ const syntaxHighlightWithPrismJS = (htmlAst: Node) => {
     return null
   }
 
-  visit(htmlAst, 'element', (node: Node, _index: number, parent: Parent | undefined) => {
-    if (!parent || parent.tagName !== 'pre' || node.tagName !== 'code') {
+    visit(htmlAst, 'element', (node: any, _index: number, parent: Parent | undefined) => {
+    if (!parent || (parent as any).tagName !== 'pre' || node.tagName !== 'code') {
       return
     }
 
     const lang = getLanguage(node)
     if (lang === null) return
 
-    let className = (node.properties as NodeProperties).className
+    let className = (((node as any).properties as NodeProperties) || {}).className
 
     let result
     try {
       className = (className || []).concat('language-' + lang)
       result = refractor.highlight(nodeToString(node), lang)
-    } catch (err) {
-      if (prism.ignoreMissing && /Unknown language/.test(err.message)) {
+    } catch (err: any) {
+      if (prism.ignoreMissing && /Unknown language/.test(err?.message)) {
         return
       }
       throw err
@@ -145,28 +147,29 @@ const tableOfContents = (htmlAst: Node) => {
 const rewriteInlineImages = async (htmlAst: Node) => {
   let nodes: { node: Node; parent: Parent | undefined }[] = []
 
-  visit(htmlAst, { tagName: `img` }, (node: Node, _index: number, parent: Parent | undefined) => {
+  visit(htmlAst, (node: any, _index: number, parent: Parent | undefined) => {
+    if (!node || node.tagName !== 'img') return
     if (nextImages.inline) {
       node.tagName = `Image`
     }
 
-    const { src } = node.properties as HTMLImageElement
+    const { src } = (node.properties as any) || {}
     node.imageDimensions = imageDimensions(src)
     nodes.push({ node, parent })
   })
 
-  const dimensions = await Promise.all(nodes.map(({ node }) => node.imageDimensions))
+  const dimensions = await Promise.all(nodes.map(({ node }) => (node as any).imageDimensions))
 
   nodes.forEach(({ node, parent }, i) => {
-    node.imageDimensions = dimensions[i]
+    ;(node as any).imageDimensions = dimensions[i]
     if (dimensions[i] === null) return
     const { width, height } = dimensions[i] as Dimensions
     const aspectRatio = width / height
     const flex = `flex: ${aspectRatio} 1 0`
     if (parent) {
-      let parentStyle = (parent.properties as NodeProperties).style || []
+      let parentStyle = (((parent as any).properties as NodeProperties) || {}).style || []
       if (typeof parentStyle === 'string') parentStyle = [parentStyle]
-      ;(parent.properties as NodeProperties).style = [...parentStyle, flex]
+      ;((parent as any).properties as NodeProperties).style = [...parentStyle, flex]
     }
   })
 

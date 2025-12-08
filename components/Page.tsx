@@ -51,7 +51,7 @@ export const Page = ({ cmsData }: PageProps) => {
                 <figure className="post-full-image" style={{ display: 'inherit' }}>
                   <Image
                     src={featImg.url}
-                    alt={page.title}
+                    alt={page.title || ''}
                     quality={nextImages.quality}
                     layout="responsive"
                     sizes={`
@@ -67,7 +67,7 @@ export const Page = ({ cmsData }: PageProps) => {
               ) : (
                 page.feature_image && (
                   <figure className="post-full-image">
-                    <img src={page.feature_image} alt={page.title} />
+                    <img src={page.feature_image} alt={page.title || ''} />
                   </figure>
                 )
               ))}

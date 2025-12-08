@@ -56,7 +56,7 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
                           <p>{author.bio}</p>
                           <p>
                             <Link href={url}>
-                              <a>{text(`MORE_POSTS`)}</a>
+                              {text(`MORE_POSTS`)}
                             </Link>{' '}
                             {text(`BY`)} {author.name}.
                           </p>
@@ -64,10 +64,10 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
                       ) : (
                         <>
                           <h2>{author.name}</h2>
-                          <p>
+                            <p>
                             {text(`READ`)}{' '}
                             <Link href={url}>
-                              <a>{text(`MORE_POSTS_SM`)}</a>
+                              {text(`MORE_POSTS_SM`)}
                             </Link>{' '}
                             {text(`BY_THIS_AUTHOR`)}.
                           </p>
@@ -76,7 +76,7 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
                     </div>
                   </div>
                 )}
-                <Link href={url}>
+                <Link href={url} legacyBehavior>
                   {profileImg && nextImages.feature ? (
                     <a className={`${(isPost && `author`) || `static`}-avatar`} aria-label={author.name}>
                       <Image src={profileImg.url} alt={author_name} layout="responsive" quality={nextImages.quality} {...profileImg.dimensions} />

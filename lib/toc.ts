@@ -23,28 +23,28 @@ export const generateTableOfContents = (htmlAst: Node) => {
   const tags = [`h1`, `h2`, `h3`, `h4`, `h5`, `h6`]
 
   function headings(node: unknown): node is Node {
-    return tags.includes((node as Node).tagName as string)
+    return tags.includes(((node as any).tagName as string))
   }
 
   // recursive walk to visit all children
   const walk = (children: Node[], text = ``, depth = 0) => {
     children.forEach((child) => {
-      if (child.type === `text`) {
-        text = text + child.value
-      } else if (child.children && depth < 3) {
+      if ((child as any).type === `text`) {
+        text = text + ((child as any).value || '')
+      } else if ((child as any).children && depth < 3) {
         depth = depth + 1
-        text = walk(child.children as Node[], text, depth)
+        text = walk((child as any).children as Node[], text, depth)
       }
     })
     return text
   }
 
   let toc: TOC[] = []
-  visit(htmlAst, headings, (node: Node) => {
-    const text = walk(node.children as Node[])
+  visit(htmlAst, headings, (node: any) => {
+    const text = walk((node.children as Node[]) || [])
     if (text.length > 0) {
-      const id = (node.properties as NodeProperties).id || `error-missing-id`
-      const level = (node.tagName as string).substr(1, 1)
+      const id = (((node as any).properties as NodeProperties) || {}).id || `error-missing-id`
+      const level = ((node as any).tagName as string).substr(1, 1)
       toc.push({ level: level, id: id, heading: text, parentIndex: -1, items: [] })
     }
   })

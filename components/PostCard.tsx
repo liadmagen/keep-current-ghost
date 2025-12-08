@@ -33,13 +33,12 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
   return (
     <article className={`post-card ${postClass} ${large}`}>
       {featImg && (
-        <Link href={url}>
-          <a className="post-card-image-link" aria-label={post.title}>
+        <Link href={url} className="post-card-image-link" aria-label={post.title || ''}>
             {nextImages.feature ? (
               <div className="post-card-image">
                 <Image
                   src={featImg.url}
-                  alt={post.title}
+                  alt={post.title || ''}
                   sizes="(max-width: 640px) 320px, (max-width: 1000px) 500px, 680px"
                   layout="fill"
                   objectFit="cover"
@@ -47,24 +46,21 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
                 />
               </div>
             ) : (
-              post.feature_image && <img className="post-card-image" src={post.feature_image} alt={post.title} />
+              post.feature_image && <img className="post-card-image" src={post.feature_image} alt={post.title || ''} />
             )}
-          </a>
         </Link>
       )}
 
       <div className="post-card-content">
-        <Link href={url}>
-          <a className="post-card-content-link">
-            <header className="post-card-header">
-              {post.primary_tag && <div className="post-card-primary-tag">{post.primary_tag.name}</div>}
-              <h2 className="post-card-title">{post.title}</h2>
-            </header>
-            <section className="post-card-excerpt">
-              {/* post.excerpt *is* an excerpt and does not need to be truncated any further */}
-              <p>{post.excerpt}</p>
-            </section>
-          </a>
+        <Link href={url} className="post-card-content-link">
+          <header className="post-card-header">
+            {post.primary_tag && <div className="post-card-primary-tag">{post.primary_tag.name}</div>}
+            <h2 className="post-card-title">{post.title}</h2>
+          </header>
+          <section className="post-card-excerpt">
+            {/* post.excerpt *is* an excerpt and does not need to be truncated any further */}
+            <p>{post.excerpt}</p>
+          </section>
         </Link>
 
         <footer className="post-card-meta">
@@ -77,7 +73,7 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
                   <div key={i}>
                     {i > 0 ? `, ` : ``}
                     <Link href={resolveUrl({ cmsUrl, slug: author.slug, url: author.url || undefined })}>
-                      <a>{author.name}</a>
+                      <span>{author.name}</span>
                     </Link>
                   </div>
                 ))}

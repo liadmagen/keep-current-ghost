@@ -1,10 +1,12 @@
-import { ReactFragment } from 'react'
+import { ReactNode } from 'react'
 import Link from 'next/link'
 
 import { DocumentHead } from '@components/DocumentHead'
 import { StickyNav } from '@components/StickyNav'
-import { SubscribeOverlay } from '@components/SubscribeOverlay'
-import { SubscribeSuccess } from '@components/SubscribeSuccess'
+import dynamic from 'next/dynamic'
+
+const SubscribeOverlay = dynamic(() => import('@components/SubscribeOverlay').then(m => m.SubscribeOverlay), { ssr: false })
+const SubscribeSuccess = dynamic(() => import('@components/SubscribeSuccess').then(m => m.SubscribeSuccess), { ssr: false })
 
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
@@ -24,11 +26,11 @@ import { GoogleAnalytics } from '@components/GoogleAnalytics'
 
 interface LayoutProps {
   settings: GhostSettings
-  header: ReactFragment
-  children: ReactFragment
+  header: ReactNode
+  children: ReactNode
   isHome?: boolean
   sticky?: StickyNavContainer
-  previewPosts?: ReactFragment
+  previewPosts?: ReactNode
   bodyClass: string
   errorClass?: string
 }
@@ -71,7 +73,7 @@ export const Layout = ({ settings, header, children, isHome, sticky, previewPost
 
             <nav className="site-footer-nav">
               <Link href="/">
-                <a>{text(`LATEST_POSTS`)}</a>
+                {text(`LATEST_POSTS`)}
               </Link>
               {site.facebook && (
                 <a href={facebookUrl} target="_blank" rel="noopener noreferrer">

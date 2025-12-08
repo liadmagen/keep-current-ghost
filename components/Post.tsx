@@ -78,7 +78,7 @@ export const Post = ({ cmsData }: PostProps) => {
                 <header className="post-full-header">
                   {post.primary_tag && (
                     <section className="post-full-tags">
-                      <Link href={resolveUrl({ cmsUrl, slug: post.primary_tag.slug, url: post.primary_tag.url })}>
+                      <Link href={resolveUrl({ cmsUrl, slug: post.primary_tag.slug, url: post.primary_tag.url })} legacyBehavior>
                         <a>{post.primary_tag.name}</a>
                       </Link>
                     </section>
@@ -99,7 +99,7 @@ export const Post = ({ cmsData }: PostProps) => {
                           {post.authors?.map((author, i) => (
                             <div key={i}>
                               {i > 0 ? `, ` : ``}
-                              <Link href={resolveUrl({ cmsUrl, slug: author.slug, url: author.url || undefined })}>
+                              <Link href={resolveUrl({ cmsUrl, slug: author.slug, url: author.url || undefined })} legacyBehavior>
                                 <a>{author.name}</a>
                               </Link>
                             </div>
@@ -123,7 +123,7 @@ export const Post = ({ cmsData }: PostProps) => {
                     <figure className="post-full-image" style={{ display: 'inherit' }}>
                       <Image
                         src={featImg.url}
-                        alt={post.title}
+                        alt={post.title || ''}
                         quality={nextImages.quality}
                         layout="responsive"
                         sizes={`
@@ -139,7 +139,7 @@ export const Post = ({ cmsData }: PostProps) => {
                   ) : (
                     post.feature_image && (
                       <figure className="post-full-image">
-                        <img src={post.feature_image} alt={post.title} />
+                        <img src={post.feature_image} alt={post.title || ''} />
                       </figure>
                     )
                   ))}

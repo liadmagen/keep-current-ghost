@@ -24,7 +24,7 @@ export const SubscribeForm = ({ settings }: { settings: GhostSettings }) => {
         </label>
         <input id="email" name="email" type="email" value={email}
           onChange={handleChange} className="subscribe-email"
-          data-members-email placeholder={text(`YOUR_EMAIL`)} autoComplete="false" />
+          data-members-email placeholder={text(`YOUR_EMAIL`)} autoComplete="off" />
         <button className="button primary" type="submit" value="Submit">
           <span className="button-content">{text(`SUBSCRIBE`)}</span>
           <span className="button-loader"><LoaderIcon /></span>

@@ -32,4 +32,6 @@ module.exports = withBundleAnalyzer({
     ],
   },
   reactStrictMode: true,
+  // Provide an explicit (empty) turbopack config so Next 16 doesn't error
+  turbopack: {},
 })

@@ -10,14 +10,14 @@ interface PropertyProps {
 export const NextImage = (props: ComponentPropsWithNode) => {
   const { node } = props
   if (!node) return null
-  const imageDimensions = node.imageDimensions as Dimensions
-  const { src, className: classArray } = node.properties as PropertyProps
+  const imageDimensions = (node as any).imageDimensions as Dimensions
+  const { src, className: classArray } = (node as any).properties as PropertyProps
   const className = classArray?.join(' ')
 
   return (
     <div className="next-image-wrapper">
       <div {...{ className }}>
-        <Image src={src} {...imageDimensions} {...{ className }} />
+        <Image src={src} alt={""} {...imageDimensions} className={className} />
       </div>
     </div>
   )

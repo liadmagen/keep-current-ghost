@@ -1,8 +1,8 @@
-import { ReactFragment } from "react"
+import { ReactNode } from "react"
 
 interface HeaderBackgroundProps {
   srcImg: string
-  children: ReactFragment
+  children: ReactNode
 }
 
 export const HeaderBackground = ({ srcImg, children }: HeaderBackgroundProps) => {

@@ -53,11 +53,12 @@ export interface GhostTags extends BrowseResults<GhostTag> {}
 
 export interface GhostAuthors extends BrowseResults<GhostAuthor> {}
 
-const api = new GhostContentAPI({
+const api = ghostAPIUrl ? new GhostContentAPI({
   url: ghostAPIUrl,
   key: ghostAPIKey,
   version: 'v3',
-})
+}) : null
+const hasApi = !!api
 
 const postAndPageFetchOptions: Params = {
   limit: 'all',
@@ -116,83 +117,135 @@ async function createNextProfileImagesFromPosts(nodes: BrowseResults<PostOrPage>
 }
 
 export async function getAllSettings(): Promise<GhostSettings> {
-  //const cached = getCache<SettingsResponse>('settings')
-  //if (cached) return cached
-  const settings = await api.settings.browse()
-  settings.url = settings?.url?.replace(/\/$/, ``)
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    const settings = await api!.settings.browse()
+    settings.url = settings?.url?.replace(/\/$/, ``)
 
-  const iconImage = await createNextImage(settings.icon)
-  const logoImage = await createNextImage(settings.logo)
-  const coverImage = await createNextImage(settings.cover_image)
+    const iconImage = await createNextImage(settings.icon)
+    const logoImage = await createNextImage(settings.logo)
+    const coverImage = await createNextImage(settings.cover_image)
 
-  const result = {
-    processEnv,
-    ...settings,
-    ...(iconImage && { iconImage }),
-    ...(logoImage && { logoImage }),
-    ...(coverImage && { coverImage }),
+    const result = {
+      processEnv,
+      ...settings,
+      ...(iconImage && { iconImage }),
+      ...(logoImage && { logoImage }),
+      ...(coverImage && { coverImage }),
+    }
+    return result
+  } catch (err) {
+    // If the Ghost CMS is unreachable (e.g. offline dev), return minimal defaults
+    console.warn('getAllSettings: failed to fetch settings from Ghost API, using defaults.', err)
+    return {
+      processEnv,
+      title: 'Site',
+      description: '',
+      url: processEnv.siteUrl || '',
+    } as unknown as GhostSettings
   }
-  //setCache('settings', result)
-  return result
 }
 
 export async function getAllTags(): Promise<GhostTags> {
-  const tags = await api.tags.browse(tagAndAuthorFetchOptions)
-  return await createNextFeatureImages(tags)
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    const tags = await api!.tags.browse(tagAndAuthorFetchOptions)
+    return await createNextFeatureImages(tags)
+  } catch (err) {
+    console.warn('getAllTags: failed to fetch tags from Ghost API, returning empty list.', err)
+    return Object.assign([], { meta: { pagination: { page: 1, limit: 0, pages: 0, total: 0 } } }) as unknown as GhostTags
+  }
 }
 
 export async function getAllAuthors() {
-  const authors = await api.authors.browse(tagAndAuthorFetchOptions)
-  return await createNextProfileImages(authors)
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    const authors = await api!.authors.browse(tagAndAuthorFetchOptions)
+    return await createNextProfileImages(authors)
+  } catch (err) {
+    console.warn('getAllAuthors: failed to fetch authors from Ghost API, returning empty list.', err)
+    return Object.assign([], { meta: { pagination: { page: 1, limit: 0, pages: 0, total: 0 } } }) as unknown as GhostAuthors
+  }
 }
 
 export async function getAllPosts(props?: { limit: number }): Promise<GhostPostsOrPages> {
-  const posts = await api.posts.browse({
-    ...postAndPageFetchOptions,
-    filter: excludePostOrPageBySlug(),
-    ...(props && { ...props }),
-  })
-  const results = await createNextProfileImagesFromPosts(posts)
-  return await createNextFeatureImages(results)
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    const posts = await api!.posts.browse({
+      ...postAndPageFetchOptions,
+      filter: excludePostOrPageBySlug(),
+      ...(props && { ...props }),
+    })
+    const results = await createNextProfileImagesFromPosts(posts)
+    return await createNextFeatureImages(results)
+  } catch (err) {
+    console.warn('getAllPosts: failed to fetch posts from Ghost API, returning empty list.', err)
+    return Object.assign([], { meta: { pagination: { page: 1, limit: 0, pages: 0, total: 0 } } }) as unknown as GhostPostsOrPages
+  }
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {
-  const posts = await api.posts.browse(postAndPageSlugOptions)
-  return posts.map((p) => p.slug)
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    const posts = await api!.posts.browse(postAndPageSlugOptions)
+    return posts.map((p) => p.slug)
+  } catch (err) {
+    console.warn('getAllPostSlugs: failed to fetch post slugs from Ghost API, returning empty list.', err)
+    return []
+  }
 }
 
 export async function getAllPages(props?: { limit: number }): Promise<GhostPostsOrPages> {
-  const pages = await api.pages.browse({
-    ...postAndPageFetchOptions,
-    filter: excludePostOrPageBySlug(),
-    ...(props && { ...props }),
-  })
-  return await createNextFeatureImages(pages)
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    const pages = await api!.pages.browse({
+      ...postAndPageFetchOptions,
+      filter: excludePostOrPageBySlug(),
+      ...(props && { ...props }),
+    })
+    return await createNextFeatureImages(pages)
+  } catch (err) {
+    console.warn('getAllPages: failed to fetch pages from Ghost API, returning empty list.', err)
+    return Object.assign([], { meta: { pagination: { page: 1, limit: 0, pages: 0, total: 0 } } }) as unknown as GhostPostsOrPages
+  }
 }
 
 // specific data by slug
 export async function getTagBySlug(slug: string): Promise<Tag> {
-  return await api.tags.read({
-    ...tagAndAuthorFetchOptions,
-    slug,
-  })
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    return await api!.tags.read({
+      ...tagAndAuthorFetchOptions,
+      slug,
+    })
+  } catch (err) {
+    console.warn(`getTagBySlug: failed to fetch tag ${slug} from Ghost API. Returning empty tag.`, err)
+    return {} as unknown as Tag
+  }
 }
 export async function getAuthorBySlug(slug: string): Promise<GhostAuthor> {
-  const author = await api.authors.read({
-    ...tagAndAuthorFetchOptions,
-    slug,
-  })
-  const profileImage = await createNextImage(author.profile_image)
-  const result = {
-    ...author,
-    ...(profileImage && { profileImage }),
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    const author = await api!.authors.read({
+      ...tagAndAuthorFetchOptions,
+      slug,
+    })
+    const profileImage = await createNextImage(author.profile_image)
+    const result = {
+      ...author,
+      ...(profileImage && { profileImage }),
+    }
+    return result
+  } catch (err) {
+    console.warn(`getAuthorBySlug: failed to fetch author ${slug} from Ghost API. Returning empty author.`, err)
+    return {} as unknown as GhostAuthor
   }
-  return result
 }
 
 export async function getPostBySlug(slug: string): Promise<GhostPostOrPage | null> {
   let result: GhostPostOrPage
   try {
+    if (!hasApi) return null
     const post = await api.posts.read({
       ...postAndPageFetchOptions,
       slug,
@@ -202,8 +255,8 @@ export async function getPostBySlug(slug: string): Promise<GhostPostOrPage | nul
 
     const { url } = await getAllSettings()
     result = await normalizePost(post, (url && urlParse(url)) || undefined)
-  } catch (error) {
-    if (error.response?.status !== 404) throw new Error(error)
+  } catch (error: any) {
+    if (error?.response?.status !== 404) throw new Error(error)
     return null
   }
   return result
@@ -212,6 +265,7 @@ export async function getPostBySlug(slug: string): Promise<GhostPostOrPage | nul
 export async function getPageBySlug(slug: string): Promise<GhostPostOrPage | null> {
   let result: GhostPostOrPage
   try {
+    if (!hasApi) return null
     const page = await api.pages.read({
       ...postAndPageFetchOptions,
       slug,
@@ -222,8 +276,8 @@ export async function getPageBySlug(slug: string): Promise<GhostPostOrPage | nul
 
     const { url } = await getAllSettings()
     result = await normalizePost(page, (url && urlParse(url)) || undefined)
-  } catch (error) {
-    if (error.response?.status !== 404) throw new Error(error)
+  } catch (error: any) {
+    if (error?.response?.status !== 404) throw new Error(error)
     return null
   }
   return result
@@ -231,21 +285,33 @@ export async function getPageBySlug(slug: string): Promise<GhostPostOrPage | nul
 
 // specific data by author/tag slug
 export async function getPostsByAuthor(slug: string): Promise<GhostPostsOrPages> {
-  const posts = await api.posts.browse({
-    ...postAndPageFetchOptions,
-    filter: `authors.slug:${slug}`,
-  })
-  return await createNextFeatureImages(posts)
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    const posts = await api!.posts.browse({
+      ...postAndPageFetchOptions,
+      filter: `authors.slug:${slug}`,
+    })
+    return await createNextFeatureImages(posts)
+  } catch (err) {
+    console.warn(`getPostsByAuthor: failed to fetch posts for author ${slug}, returning empty list.`, err)
+    return Object.assign([], { meta: { pagination: { page: 1, limit: 0, pages: 0, total: 0 } } }) as unknown as GhostPostsOrPages
+  }
 }
 
 export async function getPostsByTag(slug: string, limit?: number, excludeId?: string): Promise<GhostPostsOrPages> {
   const exclude = (excludeId && `+id:-${excludeId}`) || ``
-  const posts = await api.posts.browse({
-    ...postAndPageFetchOptions,
-    ...(limit && { limit: `${limit}` }),
-    filter: `tags.slug:${slug}${exclude}`,
-  })
-  return await createNextFeatureImages(posts)
+  try {
+    if (!hasApi) throw new Error('Ghost API not configured')
+    const posts = await api!.posts.browse({
+      ...postAndPageFetchOptions,
+      ...(limit && { limit: `${limit}` }),
+      filter: `tags.slug:${slug}${exclude}`,
+    })
+    return await createNextFeatureImages(posts)
+  } catch (err) {
+    console.warn(`getPostsByTag: failed to fetch posts for tag ${slug}, returning empty list.`, err)
+    return Object.assign([], { meta: { pagination: { page: 1, limit: 0, pages: 0, total: 0 } } }) as unknown as GhostPostsOrPages
+  }
 }
 
 // Collections

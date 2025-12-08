@@ -16,7 +16,9 @@ const options = {
   },
 }
 
-const renderAst = unified().use(rehypeReact, options)
+// `rehype-react` type signatures are incompatible with current React types
+// cast to `any` to avoid type errors while preserving runtime behavior
+const renderAst = unified().use(rehypeReact as any, options as any)
 
 interface RenderContentProps {
   htmlAst: Node | null

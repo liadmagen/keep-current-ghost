@@ -38,14 +38,14 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
                 <Image
                   className="author-profile-image"
                   src={profileImg.url}
-                  alt={author.name}
+                  alt={author.name || ''}
                   layout="responsive"
                   quality={nextImages.quality}
                   {...profileImg.dimensions}
                 />
               </div>
             ) : (author.profile_image ? (
-              <img className="author-profile-image" src={author.profile_image} alt={author.name} />
+              <img className="author-profile-image" src={author.profile_image} alt={author.name || ''} />
             ) : (
                 <div className="author-profile-image">
                   <AvatarIcon />

@@ -61,9 +61,8 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     <nav className={className}>
       <div className="site-nav-left-wrapper">
         <div className="site-nav-left">
-          <Link href="/">
+          <Link href="/" className="site-nav-logo">
             {siteLogo && nextImages.feature ? (
-              <a className="site-nav-logo">
                 <div
                   style={{
                     height: '${targetHeight}px',
@@ -72,13 +71,10 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
                 >
                   <Image className="site-nav-logo" src={siteLogo.url} alt={title} layout="responsive" quality={nextImages.quality} {...siteLogo.dimensions} />
                 </div>
-              </a>
             ) : site.logo ? (
-              <a className="site-nav-logo">
                 <img src={site.logo} alt={title} />
-              </a>
             ) : (
-              <a className="site-nav-logo">{title}</a>
+              <span>{title}</span>
             )}
           </Link>
           <div className="site-nav-content">

@@ -37,7 +37,6 @@ export const HeaderIndex = ({ settings }: HeaderIndexProps) => {
             <h1 className="site-title">
               {siteLogo && nextFeatureImages ? (
                 <Link href="/">
-                  <a>
                     <div className="site-logo" style={{
                       marginTop: "8px",
                       height: `${targetHeight}px`,
@@ -52,13 +51,10 @@ export const HeaderIndex = ({ settings }: HeaderIndexProps) => {
                         {...siteLogo.dimensions}
                       />
                     </div>
-                  </a>
                 </Link>
               ) : (site.logo ? (
                 <Link href="/">
-                  <a>
                     <img className="site-logo" src={site.logo} alt={title} />
-                  </a>
                 </Link>
               ) : (
                   title

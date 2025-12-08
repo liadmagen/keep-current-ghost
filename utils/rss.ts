@@ -60,7 +60,7 @@ const generateItem = ({ post, settings }: ItemProps) => {
 
   // ToDo:
   // const transformedHtml = post.htmlAst
-  const htmlContent = cheerio.load(html || '', { decodeEntities: false, xmlMode: true })
+  const htmlContent = cheerio.load(html || '', { xmlMode: true })
   const imageUrl = post.feature_image
 
   const tagsFilter = (tags: Tag[]) => tags

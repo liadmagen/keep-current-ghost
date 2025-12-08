@@ -87,7 +87,7 @@ export const readingTime = (post: PostOrPage, options: ReadingTimeOptions = {}) 
     imageCount += 1
   }
 
-  const time = post.reading_time || readingMinutes(post.html, imageCount)
+  const time = Number(post.reading_time || readingMinutes(post.html, imageCount))
   let readingTime = ''
 
   if (time <= 1) {

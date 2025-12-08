@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ReactFragment } from 'react'
+import { ReactNode } from 'react'
 import { NavItem } from '@lib/ghost'
 
 /**
@@ -19,7 +19,7 @@ interface NavigationProps {
 }
 
 export const Navigation = ({ data, navClass }: NavigationProps) => {
-  const items: ReactFragment[] = []
+  const items: ReactNode[] = []
 
   data?.map((navItem, i) => {
     if (navItem.url.match(/^\s?http(s?)/gi)) {
@@ -33,9 +33,9 @@ export const Navigation = ({ data, navClass }: NavigationProps) => {
     } else {
       items.push(
         <li key={i} className={`nav-${navItem.label.toLowerCase()}`} role="menuitem">
-          <div className={navClass}>
-            <Link href={navItem.url} >
-              <a>{navItem.label}</a>
+            <div className={navClass}>
+            <Link href={navItem.url}>
+              {navItem.label}
             </Link>
           </div>
         </li>

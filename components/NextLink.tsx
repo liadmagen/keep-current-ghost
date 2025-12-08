@@ -9,13 +9,13 @@ interface PropertyProps {
 }
 
 export const NextLink = (props: ComponentPropsWithNode) => {
-  const { href } = props.node?.properties as PropertyProps
-  const [child] = props.node?.children as Node[]
+  const { href } = (props.node as any)?.properties as PropertyProps
+  const [child] = ((props.node as any)?.children as Node[]) || []
 
   return (
     <>
       {!!href && (
-        <Link href={href}>
+        <Link href={href} legacyBehavior>
           <a>
             <RenderContent htmlAst={child} />
           </a>
