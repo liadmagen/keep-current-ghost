@@ -29,6 +29,7 @@ module.exports = withBundleAnalyzer({
       { protocol: 'https', hostname: 'drive.google.com' },
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
       { protocol: 'https', hostname: 'lh6.googleusercontent.com' },
+      { protocol: 'https', hostname: 'rmkcdn.successfactors.com'}
     ],
   },
   reactStrictMode: true,
