@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Head from 'next/head'
 import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent'
 import { GA_TRACKING_ID } from '../lib/gtag'
+import Script from 'next/script'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const cookieConcent = getCookieConsentValue();
@@ -18,14 +19,14 @@ export const GoogleAnalytics = () => {
     <>
       {/* enable analytics script only for production */}
       <Head>
-        {concent === 'true' && (<script src={gaURL}></script>)}
-        {concent === 'true' && (<script dangerouslySetInnerHTML={{ __html: `
+        {concent === 'true' && (<Script src={gaURL} />)}
+        {concent === 'true' && (<Script dangerouslySetInnerHTML={{ __html: `
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', '${GA_TRACKING_ID}');
-        ` }}></script>)}
+        ` }}/>)}
       </Head>
 
       <CookieConsent

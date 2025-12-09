@@ -25,6 +25,7 @@ import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { collections } from '@lib/collections'
 
 import { ISeoImage } from '@meta/seoImage'
+import Script from 'next/script'
 
 import React from 'react'
 
@@ -157,7 +158,7 @@ export const Post = ({ cmsData }: PostProps) => {
 
                 {commenting.system === 'disqus' && <DisqusComments {...{ post, shortname: commenting.disqusShortname }} />}
 
-                  <script
+                  <Script
                     src="https://utteranc.es/client.js"
                     /* @ts-ignore */
                     repo="Keep-Current/keep-current.github.io"
@@ -165,7 +166,7 @@ export const Post = ({ cmsData }: PostProps) => {
                     theme="github-light"
                     crossOrigin="anonymous"
                     async
-                  ></script>
+                  />
               </article>
             </div>
           </Layout>

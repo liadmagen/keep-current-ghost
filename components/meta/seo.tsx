@@ -7,6 +7,8 @@ import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 import { ISeoImage } from '@meta/seoImage'
 import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@meta/siteDefaults'
 
+import Script from 'next/script'
+
 interface SEOProps {
   title?: string
   description?: string
@@ -66,19 +68,19 @@ export const SEO = (props: SEOProps) => {
       {seoImage && <meta property="og:image" content={seoImage.url} />}
       {seoImage && <meta property="og:image:width" content={`${seoImage.dimensions.width}`} />}
       {seoImage && <meta property="og:image:height" content={`${seoImage.dimensions.height}`} />}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}></script>
+      <Script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <script type="text/x-mathjax-config">
+      <Script type="text/x-mathjax-config">
         {`
       MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}}); 
       `} 
         // ['\\(','\\)']
-    </script>
-      <script
+    </Script>
+      <Script
         type="text/javascript"
         async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML"
-      ></script>
+      ></Script>
     </Head>
   )
 }

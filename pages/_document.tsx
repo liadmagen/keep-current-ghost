@@ -2,6 +2,7 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
 import { URL } from 'url'
 import { processEnv } from '@lib/processEnv'
+import Script from 'next/script'
 
 export default class MyDocument extends Document {
 
@@ -26,7 +27,7 @@ export default class MyDocument extends Document {
           />       
         </Head>
         <body {...{className: bodyClass}}>
-          <script
+          <Script
             dangerouslySetInnerHTML={{
               __html: `
             (function(){
