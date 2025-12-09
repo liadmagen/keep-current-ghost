@@ -56,7 +56,8 @@ export interface GhostAuthors extends BrowseResults<GhostAuthor> {}
 const api = ghostAPIUrl ? new GhostContentAPI({
   url: ghostAPIUrl,
   key: ghostAPIKey,
-  version: 'v3',
+  // Use full major.minor version format to avoid deprecation warnings
+  version: 'v3.0',
 }) : null
 const hasApi = !!api
 
